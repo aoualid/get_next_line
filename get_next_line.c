@@ -6,13 +6,13 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:17 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/01 19:15:50 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/01 19:21:32 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char	*ft_read(int fd)
 {
 	int		bytes;
 	char	buffer[BUFFER_SIZE + 1];	
@@ -58,6 +58,23 @@ char	*ft_nxt_line(char *str)
 	return (ptr);
 }
 
+char	*ft_overflow(char *str)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*ptr;
 
+	len = ft_strlen(str);
+	i = 0;
+	j = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	ptr = malloc (sizeof(char) * (len - i) + 1);
+	while (str[i])
+		ptr[j++] = str[i++];
+	ptr [j] = '\0';
+	return (ptr);
+}	
 
 
