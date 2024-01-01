@@ -6,7 +6,7 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:17 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/01 19:02:59 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/01 19:15:50 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,29 @@ char	*get_next_line(int fd)
 	}	
 	return (ptr);
 }
+
+char	*ft_nxt_line(char *str)
+{
+	int		i;
+	int		j;
+	char	*ptr;
+
+	i = 0;
+	j = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	ptr = malloc (sizeof(char) * i + 2);
+	while (j < i)
+	{
+		ptr[j] = str[j];
+		j++;
+	}
+	if (ptr[i] == '\n')
+		ptr [j++] = '\n';
+	ptr [j] = '\0';
+	return (ptr);
+}
+
+
+
 
