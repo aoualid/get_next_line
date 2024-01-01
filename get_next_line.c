@@ -6,17 +6,18 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:17 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/01 19:21:32 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/01 19:26:45 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <bits/posix2_lim.h>
+#include <sys/types.h>
 
-char	*ft_read(int fd)
+char	*ft_read(int fd, char *ptr)
 {
 	int		bytes;
 	char	buffer[BUFFER_SIZE + 1];	
-	char	*ptr;
 
 	bytes = 1;
 	if (!ptr)
@@ -78,3 +79,14 @@ char	*ft_overflow(char *str)
 }	
 
 
+char	*get_next_line(int fd)
+{
+	char		*line;
+	static char	*buffer;
+
+	buffer = ft_read(fd, buffer);
+	line = ft_nxt_line(buffer);
+	buffer = ft_overflow(line);
+
+	return (line);
+}
