@@ -6,7 +6,7 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:17 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/01 19:26:45 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/01 19:30:09 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*ft_nxt_line(char *str)
 		ptr [j++] = '\n';
 	ptr [j] = '\0';
 	return (ptr);
+
 }
 
 char	*ft_overflow(char *str)
@@ -86,6 +87,7 @@ char	*get_next_line(int fd)
 
 	buffer = ft_read(fd, buffer);
 	line = ft_nxt_line(buffer);
+	free (buffer);
 	buffer = ft_overflow(line);
 
 	return (line);
