@@ -6,7 +6,7 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:14 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/03 17:32:57 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:12:17 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		j;
 
 	if (s1 == NULL || s2 == NULL)
+	{
+		free (s1);
 		return (NULL);
+	}
 	j = 0;
 	i = 0;
 	t1 = ft_strlen(s1);
