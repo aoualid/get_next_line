@@ -6,7 +6,7 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:14 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/01 19:00:47 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:32:57 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		t1;
 	int		t2;
@@ -76,6 +76,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		while (j < t2)
 			ptr[i++] = s2[j++];
 	}
+	free(s1);
 	return (ptr);
 }
 
