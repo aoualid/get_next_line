@@ -6,7 +6,7 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:14 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/03 18:12:17 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:41:56 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,38 +51,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	int		t1;
-	int		t2;
-	char	*ptr;
-	int		i;
-	int		j;
-
-	if (s1 == NULL || s2 == NULL)
-	{
-		free (s1);
-		return (NULL);
-	}
-	j = 0;
-	i = 0;
-	t1 = ft_strlen(s1);
-	t2 = ft_strlen(s2);
-	ptr = ft_calloc(t1 + t2 + 1, 1);
-	if (!ptr)
-		return (NULL);
-	while (i < (t1 + t2))
-	{
-		while (i < t1)
-			if (i++ >= 0)
-				ptr[i - 1] = s1[i - 1];
-		while (j < t2)
-			ptr[i++] = s2[j++];
-	}
-	free(s1);
-	return (ptr);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
 	char	*ptr;
@@ -97,4 +65,49 @@ char	*ft_strchr(const char *s, int c)
 		ptr++;
 	}
 	return (ptr);
+}
+
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	char		*ds;
+	const char	*sc;
+	size_t		i;
+
+	ds = (char *)dest;
+	sc = src;
+	i = 0;
+	if (dest > src)
+	{
+		while (n > 0)
+		{
+			n--;
+			ds[n] = sc[n];
+		}
+	}
+	else
+	{
+		while (i < n)
+		{
+			ds[i] = sc[i];
+			i++;
+		}
+	}
+	return (dest);
+}
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	char	*ds;
+	size_t	i;
+
+	ds = (char *)dest;
+	i = 0;
+	while (i < n)
+	{
+		*(char *)ds = *(char *)src;
+		ds++;
+		src++;
+		i++;
+	}
+	return (dest);
 }

@@ -6,115 +6,150 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:17 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/03 18:19:05 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:44:02 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <bits/posix2_lim.h>
 #include <sys/types.h>
+#include <string.h>
 
-
-char	*ft_read(int fd, char *ptr)
+static int	line_length(char *s)
 {
-	int			bytes;
-	char		buffer[BUFFER_SIZE + 1];
+	int	i;
 
-	bytes = 1;
-	if (!ptr)
-		ptr = ft_calloc(1, 1);
-	while (bytes > 0)
-	{
-		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes == -1)
-		{
-			free(ptr);
-			return (NULL);
-		}
-		buffer[bytes] = '\0';
-		ptr = ft_strjoin(ptr, buffer);
-		if (!ptr)
-			return NULL;
-		if (ft_strchr(buffer, '\n'))
-			break ;
-	}
-	return (ptr);
+	i = 0;
+	while (s[i] && s[i] != '\n')
+		i++;
+	if (s[i] == '\n')
+		i++;
+	return (i);
 }
 
-char	*ft_nxt_line(char *str)
+static char	*join(char *str, char *buffer)
 {
+	char	*s;
 	int		i;
-	char	*ptr;
+	int		j;
+	int		line_len;
 
-	i = 0;
-	if (!str || *str == 0)
-	{
-		free(str);
-		return NULL;
-	}
-	while (str[i] && str[i] != '\n')
-		i++;
-	ptr = ft_calloc(i + 2, sizeof(char));
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		ptr[i] = str[i];
-		i++;
-	}
-	if (str[i] && str[i] == '\n')
-		ptr[i++] = '\n';
-	ptr[i] = '\0';
-	return (ptr);
-}
-
-char	*ft_overflow(char *str)
-{
-	int		i;
-	int		len;
-	char	*ptr;
-
-	i = 0;
-	if (!str || *str == 0)
-		return NULL;
-	while (str[i] && str[i] != '\n')
-		i++;
-	len = ft_strlen(str);
-	ptr = malloc(len - i + 1 * sizeof(char));
-	if (!ptr)
+	line_len = line_length(buffer);
+	s = ft_calloc(ft_strlen(str) + line_len + 1, 1);
+	if (!s)
 		return (NULL);
 	i = 0;
 	while (str[i])
 	{
-		ptr[i] = str[i];
+		s[i] = str[i];
 		i++;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+	j = 0;
+	while (j < line_length(buffer))
+	{
+		s[i] = buffer[j];
+		j++;
+		i++;
+	}
+	free(str);
+	return (s);
+}
+
+char	*ft_read(int fd, char *buffer, char *str)
+{
+	int			bytes;
+	char		*nl;
+
+	if (!str)
+		str = ft_calloc(1, 1);
+	while (1)
+	{
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes == -1)
+			return (free(str), NULL);
+		else if (bytes == 0)
+			return (buffer[0] = '\0', str);
+		buffer[bytes] = '\0';
+		str = join(str, buffer);
+		if (!str)
+			return (NULL);
+		nl = ft_strchr(buffer, '\n');
+		if (nl++)
+		{
+			ft_memcpy(buffer, nl, BUFFER_SIZE - (int)(nl - buffer));
+			buffer[BUFFER_SIZE - (int)(nl - buffer)] = '\0';
+			break ;
+		}
+	}
+	return (str);
+}
+
+static char	*copy_remaining(char *buffer)
+{
+	char	*s;
+	int		i;
+	char	*nl;
+	int		line_len;
+
+	line_len = line_length(buffer);
+	s = malloc(line_len + 1);
+	s[line_len] = '\0';
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (i < line_len)
+	{
+		s[i] = buffer[i];
+		i++;
+	}
+	nl = ft_strchr(buffer, '\n');
+	if (nl)
+	{
+		nl++;
+		ft_memcpy(buffer, nl, BUFFER_SIZE - (int)(nl - buffer));
+		buffer[BUFFER_SIZE - (int)(nl - buffer)] = '\0';
+	}
+	else
+		buffer[0] = '\0';
+	return (s);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*buffer;
+	int			n;
+	static char	buffer[BUFFER_SIZE + 1];
 
-	buffer = ft_read(fd, buffer);
-	line = ft_nxt_line(buffer);
+	line = NULL;
+	if (*buffer != '\0')
+	{
+		line = copy_remaining(buffer);
+		n = ft_strlen(line);
+		if (line[n - 1] == '\n')
+			return (line);
+		else if (line[n - 1] == '\0')
+			return (line);
+	}
+	line = ft_read(fd, buffer, line);
 	if (!line)
-		buffer = ft_overflow(line);
+		return (NULL);
+	if (*line == '\0')
+		return (free(line), NULL);
 	return (line);
 }
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
+// #include <stdlib.h>
+// #include <stdio.h>
+// #include <fcntl.h>
 
 // int main()
 // {
-// 	int fd = open("gnlTester/files/nl", O_RDONLY);
-// 	char *s = get_next_line(fd);
-// 	printf("%s\n", s);
-// 	s = get_next_line(fd);
-// 	printf("%s\n", s);
+// 	int fd = open("gnlTester/files/alternate_line_nl_no_nl", O_RDONLY);
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
 // }
