@@ -6,7 +6,11 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:17 by aroualid          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/01/05 15:26:10 by aroualid         ###   ########.fr       */
+=======
 /*   Updated: 2024/01/05 15:11:08 by aroualid         ###   ########.fr       */
+>>>>>>> ac0cc6fca8c98d269f13eba0fe41177b9625cdd8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +100,9 @@ static char	*copy_remaining(char *buffer)
 	s[line_len] = '\0';
 	if (!s)
 		return (NULL);
-	i = 0;
-	while (i < line_len)
-	{
+	i = -1;
+	while (++i < line_len)
 		s[i] = buffer[i];
-		i++;
-	}
 	nl = ft_strchr(buffer, '\n');
 	if (nl)
 	{

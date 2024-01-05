@@ -6,7 +6,11 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:14 by aroualid          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/01/05 15:26:23 by aroualid         ###   ########.fr       */
+=======
 /*   Updated: 2024/01/05 15:10:54 by aroualid         ###   ########.fr       */
+>>>>>>> ac0cc6fca8c98d269f13eba0fe41177b9625cdd8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +72,8 @@ char	*ft_strchr(const char *s, int c)
 	return (ptr);
 }
 
+<<<<<<< HEAD
+=======
 // void	*ft_memmove(void *dest, const void *src, size_t n)
 // {
 // 	char		*ds;
@@ -96,6 +102,7 @@ char	*ft_strchr(const char *s, int c)
 // 	return (dest);
 // }
 
+>>>>>>> ac0cc6fca8c98d269f13eba0fe41177b9625cdd8
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	i;
@@ -103,7 +110,11 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	i = 0;
 	while (n - i >= 8)
 	{
+<<<<<<< HEAD
+		*((long long *)(dest + i)) = *((long long *)(src + i));
+=======
 		*((long long *)(dest + i)) = *((long long*)(src + i));
+>>>>>>> ac0cc6fca8c98d269f13eba0fe41177b9625cdd8
 		i += 8;
 	}
 	while (i < n)
