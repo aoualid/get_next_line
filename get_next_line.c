@@ -6,7 +6,7 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:17 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/05 14:44:02 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:11:08 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ char	*ft_read(int fd, char *buffer, char *str)
 		nl = ft_strchr(buffer, '\n');
 		if (nl++)
 		{
-			ft_memcpy(buffer, nl, BUFFER_SIZE - (int)(nl - buffer));
-			buffer[BUFFER_SIZE - (int)(nl - buffer)] = '\0';
+			ft_memcpy(buffer, nl, bytes - (int)(nl - buffer));
+			buffer[bytes - (int)(nl - buffer)] = '\0';
 			break ;
 		}
 	}

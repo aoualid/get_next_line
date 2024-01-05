@@ -6,11 +6,12 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:14 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/05 14:41:56 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:10:54 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -67,46 +68,47 @@ char	*ft_strchr(const char *s, int c)
 	return (ptr);
 }
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
-{
-	char		*ds;
-	const char	*sc;
-	size_t		i;
+// void	*ft_memmove(void *dest, const void *src, size_t n)
+// {
+// 	char		*ds;
+// 	const char	*sc;
+// 	size_t		i;
 
-	ds = (char *)dest;
-	sc = src;
-	i = 0;
-	if (dest > src)
-	{
-		while (n > 0)
-		{
-			n--;
-			ds[n] = sc[n];
-		}
-	}
-	else
-	{
-		while (i < n)
-		{
-			ds[i] = sc[i];
-			i++;
-		}
-	}
-	return (dest);
-}
+// 	ds = (char *)dest;
+// 	sc = src;
+// 	i = 0;
+// 	if (dest > src)
+// 	{
+// 		while (n > 0)
+// 		{
+// 			n--;
+// 			ds[n] = sc[n];
+// 		}
+// 	}
+// 	else
+// 	{
+// 		while (i < n)
+// 		{
+// 			ds[i] = sc[i];
+// 			i++;
+// 		}
+// 	}
+// 	return (dest);
+// }
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char	*ds;
 	size_t	i;
 
-	ds = (char *)dest;
 	i = 0;
+	while (n - i >= 8)
+	{
+		*((long long *)(dest + i)) = *((long long*)(src + i));
+		i += 8;
+	}
 	while (i < n)
 	{
-		*(char *)ds = *(char *)src;
-		ds++;
-		src++;
+		((char *)dest)[i] = ((const char *)src)[i];
 		i++;
 	}
 	return (dest);
