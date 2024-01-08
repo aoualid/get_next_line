@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 09:17:24 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/08 11:27:46 by aroualid         ###   ########.fr       */
+/*   Created: 2024/01/08 10:36:37 by aroualid          #+#    #+#             */
+/*   Updated: 2024/01/08 11:54:58 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	line_length(char *s)
 {
@@ -107,38 +107,26 @@ char	*get_next_line(int fd)
 {
 	char		*line;
 	int			n;
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	*buffer[8192];
 
 	line = NULL;
-	if (*buffer != '\0')
+	if (!buffer[fd])
+		buffer[fd] = ft_calloc(BUFFER_SIZE + 1, 1);
+	if (*buffer[fd] != '\0')
 	{
-		line = copy_remaining(buffer);
+		line = copy_remaining(buffer[fd]);
 		n = ft_strlen(line);
-		if (line[n - 1] == '\n')
-			return (line);
-		else if (line[n - 1] == '\0')
+		if (line[n - 1] == '\n' || line[n - 1] == '\0')
 			return (line);
 	}
-	line = ft_read(fd, buffer, line);
+	line = ft_read(fd, buffer[fd], line);
 	if (!line)
+	{
+		if (buffer[fd])
+			free(buffer[fd]);
 		return (NULL);
+	}
 	if (*line == '\0')
 		return (free(line), NULL);
 	return (line);
 }
-
-// #include <stdlib.h>
-// #include <stdio.h>
-// #include <fcntl.h>
-
-// int main()
-// {
-// 	int fd = open("gnlTester/files/alternate_line_nl_no_nl", O_RDONLY);
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// }
