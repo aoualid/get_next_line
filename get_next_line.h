@@ -6,7 +6,7 @@
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:36:19 by aroualid          #+#    #+#             */
-/*   Updated: 2024/01/05 15:27:07 by aroualid         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:24:55 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <ctype.h>
 # include <string.h>
 # include <sys/select.h>
-# include <unistd.h>
+# include <bits/posix2_lim.h>
+# include <sys/types.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1

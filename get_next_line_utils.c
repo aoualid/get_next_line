@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 13:36:14 by aroualid          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/05 15:26:23 by aroualid         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/05 15:10:54 by aroualid         ###   ########.fr       */
->>>>>>> ac0cc6fca8c98d269f13eba0fe41177b9625cdd8
+/*   Created: 2024/01/08 09:17:38 by aroualid          #+#    #+#             */
+/*   Updated: 2024/01/08 09:18:16 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,37 +68,6 @@ char	*ft_strchr(const char *s, int c)
 	return (ptr);
 }
 
-<<<<<<< HEAD
-=======
-// void	*ft_memmove(void *dest, const void *src, size_t n)
-// {
-// 	char		*ds;
-// 	const char	*sc;
-// 	size_t		i;
-
-// 	ds = (char *)dest;
-// 	sc = src;
-// 	i = 0;
-// 	if (dest > src)
-// 	{
-// 		while (n > 0)
-// 		{
-// 			n--;
-// 			ds[n] = sc[n];
-// 		}
-// 	}
-// 	else
-// 	{
-// 		while (i < n)
-// 		{
-// 			ds[i] = sc[i];
-// 			i++;
-// 		}
-// 	}
-// 	return (dest);
-// }
-
->>>>>>> ac0cc6fca8c98d269f13eba0fe41177b9625cdd8
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	i;
@@ -110,11 +75,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	i = 0;
 	while (n - i >= 8)
 	{
-<<<<<<< HEAD
 		*((long long *)(dest + i)) = *((long long *)(src + i));
-=======
-		*((long long *)(dest + i)) = *((long long*)(src + i));
->>>>>>> ac0cc6fca8c98d269f13eba0fe41177b9625cdd8
 		i += 8;
 	}
 	while (i < n)

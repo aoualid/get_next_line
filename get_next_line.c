@@ -5,19 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroualid <aroualid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 13:36:17 by aroualid          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/05 15:26:10 by aroualid         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/05 15:11:08 by aroualid         ###   ########.fr       */
->>>>>>> ac0cc6fca8c98d269f13eba0fe41177b9625cdd8
+/*   Created: 2024/01/08 09:17:24 by aroualid          #+#    #+#             */
+/*   Updated: 2024/01/08 10:20:56 by aroualid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <bits/posix2_lim.h>
-#include <sys/types.h>
-#include <string.h>
 
 static int	line_length(char *s)
 {
@@ -50,13 +43,8 @@ static char	*join(char *str, char *buffer)
 	}
 	j = 0;
 	while (j < line_length(buffer))
-	{
-		s[i] = buffer[j];
-		j++;
-		i++;
-	}
-	free(str);
-	return (s);
+		s[i++] = buffer[j++];
+	return (free(str),s);
 }
 
 char	*ft_read(int fd, char *buffer, char *str)
